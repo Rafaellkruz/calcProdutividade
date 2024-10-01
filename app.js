@@ -60,7 +60,7 @@ function calcular() {
         const sacosPorTarefa = (produtividadeEstimada / 3.3) / 60;
 
         // Cálculo da porcentagem de perdas
-        const porcentagemPerdas = ((5500 - sacosPorTarefa) / 5500) * 100;
+        const porcentagemPerdas = ((5500 - produtividadeEstimada) / 5500) * 100;
 
         // Exibir os resultados
         resultadosDiv.innerHTML += `
