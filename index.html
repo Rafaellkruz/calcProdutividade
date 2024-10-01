@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Produtividade</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    
+    <header>
+        <h1>Calculadora de Produtividade</h1>
+    </header>
+    <div id="areas">
+      <div class="area">
+          <h4>Área 1</h4>
+          <label>Valor da Área (ha):</label>
+          <input type="number" class="valorArea" />
+          <label>Umidade obtida (%):</label>
+          <input type="number" class="umidadeObtida" />
+          <label>População em 10 metros:</label>
+          <input type="number" class="populacao10m" />
+          <label>Peso médio por espiga (g):</label>
+          <input type="number" class="pesoEspiga" />
+      </div>
+  </div>
+  <button id="addArea">Adicionar Área</button>
+  <button id="calcular">Calcular</button>
+  <div id="resultados"></div>
+  
+</div>
+
+    <script src="app.js"></script>
+</body>
+</html>
