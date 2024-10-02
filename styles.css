@@ -5,6 +5,10 @@ body {
   background-color: #f8f9fa;
 }
 
+h1 {
+  text-align: center;
+}
+
 h3 {
   color: #333;
 }
@@ -61,3 +65,5 @@ button:hover {
 .resultados h3 {
   margin-top: 0;
 }
+
+
