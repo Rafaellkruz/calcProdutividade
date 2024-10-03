@@ -1,0 +1,16 @@
+{
+  "name": "Calculadora de Produtividade",
+  "short_name": "CalcProd",
+  "description": "Uma calculadora para produtividade agrícola.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#f8f9fa",
+  "theme_color": "#28a745",
+  "icons": [
+    {
+      "src": "/images/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
