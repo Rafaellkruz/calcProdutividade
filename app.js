@@ -1,106 +1,108 @@
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
-      .register("https://rafaellkruz.github.io/service-worker.js'") // Ajuste para incluir o nome do repositório
+      .register("service-worker.js") // Ajustado para usar a URL correta
       .then(() => console.log("Service Worker registrado com sucesso."))
       .catch((err) => console.error("Falha ao registrar o Service Worker:", err));
   });
 }
+
 document.getElementById('addArea').addEventListener('click', adicionarArea);
 document.getElementById('calcular').addEventListener('click', calcular);
 
 function adicionarArea() {
-    const areasDiv = document.getElementById('areas');
-    const areaCount = areasDiv.children.length + 1; // Contar quantas áreas já existem
+  const areasDiv = document.getElementById('areas');
+  const areaCount = areasDiv.children.length + 1; // Contar quantas áreas já existem
 
-    const novaArea = document.createElement('div');
-    novaArea.className = 'area';
-    novaArea.innerHTML = `
-        <h4>Área ${areaCount}</h4>
-        <label>Valor da Área (ha):</label>
-        <input type="number" class="valorArea" />
-        <label>Umidade obtida (%):</label>
-        <input type="number" class="umidadeObtida" />
-        <label>População em 10 metros:</label>
-        <input type="number" class="populacao10m" />
-        <label>Peso médio por espiga (g):</label>
-        <input type="number" class="pesoEspiga" />
-    `;
-    areasDiv.appendChild(novaArea);
+  const novaArea = document.createElement('div');
+  novaArea.className = 'area';
+  novaArea.innerHTML = `
+    <h4>Área ${areaCount}</h4>
+    <label>Valor da Área (ha):</label>
+    <input type="number" class="valorArea" />
+    <label>Umidade obtida (%):</label>
+    <input type="number" class="umidadeObtida" />
+    <label>População em 10 metros:</label>
+    <input type="number" class="populacao10m" />
+    <label>Peso médio por espiga (g):</label>
+    <input type="number" class="pesoEspiga" />
+  `;
+  areasDiv.appendChild(novaArea);
 }
 
 function formatarNumero(numero) {
-    return numero.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  if (isNaN(numero)) return "0.00";
+  return numero.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 function calcular() {
-    const areas = document.querySelectorAll('.area');
-    const resultadosDiv = document.getElementById('resultados');
-    resultadosDiv.innerHTML = '';
+  const areas = document.querySelectorAll('.area');
+  const resultadosDiv = document.getElementById('resultados');
+  resultadosDiv.innerHTML = '';
 
-    // Captura dos dados desejados
-    const umidadeDesejada = parseFloat(document.getElementById('umidadeDesejada').value);
-    const produtividadeDesejada = parseFloat(document.getElementById('produtividadeDesejada').value);
-    const sacosDesejados = parseFloat(document.getElementById('sacosDesejados').value);
-    const populacaoDesejada = parseFloat(document.getElementById('populacaoDesejada').value);
-    const pesoEspigaDesejado = parseFloat(document.getElementById('pesoEspigaDesejado').value);
+  // Captura dos dados desejados
+  const umidadeDesejada = parseFloat(document.getElementById('umidadeDesejada').value) || 0;
+  const produtividadeDesejada = parseFloat(document.getElementById('produtividadeDesejada').value) || 0;
+  const sacosDesejados = parseFloat(document.getElementById('sacosDesejados').value) || 0;
+  const populacaoDesejada = parseFloat(document.getElementById('populacaoDesejada').value) || 0;
+  const pesoEspigaDesejado = parseFloat(document.getElementById('pesoEspigaDesejado').value) || 0;
 
-    let producaoRealTotal = 0;
-    let producaoContratadaTotal = 0;
+  let producaoRealTotal = 0;
+  let producaoContratadaTotal = 0;
 
-    areas.forEach((area, index) => {
-        const valorArea = parseFloat(area.querySelector('.valorArea').value);
-        const umidadeObtida = parseFloat(area.querySelector('.umidadeObtida').value);
-        const populacao10m = parseFloat(area.querySelector('.populacao10m').value);
-        const pesoEspiga = parseFloat(area.querySelector('.pesoEspiga').value);
-        
-        // Cálculo da população real
-        const populacaoReal = (10000 / 0.7) * (populacao10m / 10);
+  areas.forEach((area, index) => {
+    const valorArea = parseFloat(area.querySelector('.valorArea').value) || 0;
+    const umidadeObtida = parseFloat(area.querySelector('.umidadeObtida').value) || 0;
+    const populacao10m = parseFloat(area.querySelector('.populacao10m').value) || 0;
+    const pesoEspiga = parseFloat(area.querySelector('.pesoEspiga').value) || 0;
 
-        // Cálculo do Peso Médio Corrigido para a área atual
-        const pesoMedioCorrigido = ((100 - umidadeObtida) / (100 - umidadeDesejada)) * pesoEspiga;
+    // Cálculo da população real
+    const populacaoReal = (10000 / 0.7) * (populacao10m / 10);
 
-        // Cálculo da produtividade estimada
-        const produtividadeEstimada = (pesoMedioCorrigido * populacaoReal) / 1000;
+    // Cálculo do Peso Médio Corrigido para a área atual
+    const pesoMedioCorrigido = ((100 - umidadeObtida) / (100 - umidadeDesejada)) * pesoEspiga;
 
-        // Cálculo da produção contratada para a área
-        const producaoContratada = valorArea * produtividadeDesejada; // kg
-        producaoContratadaTotal += producaoContratada;
+    // Cálculo da produtividade estimada
+    const produtividadeEstimada = (pesoMedioCorrigido * populacaoReal) / 1000;
 
-        // Cálculo da produção real para a área
-        const producaoReal = valorArea * produtividadeEstimada; // kg
-        producaoRealTotal += producaoReal;
+    // Cálculo da produção contratada para a área
+    const producaoContratada = valorArea * produtividadeDesejada; // kg
+    producaoContratadaTotal += producaoContratada;
 
-        // Cálculo dos sacos por tarefa
-        const sacosPorTarefa = (produtividadeEstimada / 3.3)/60;
+    // Cálculo da produção real para a área
+    const producaoReal = valorArea * produtividadeEstimada; // kg
+    producaoRealTotal += producaoReal;
 
-        // Cálculo da porcentagem de perdas
-        const porcentagemPerdas = ((produtividadeDesejada - produtividadeEstimada) / produtividadeDesejada) * 100;
+    // Cálculo dos sacos por tarefa
+    const sacosPorTarefa = (producaoReal / 60);
 
-        // Exibir os resultados
-        resultadosDiv.innerHTML += `
-            <div class="resultados">
-                <h3>Resultados para Área ${index + 1}</h3>
-                <p><strong>Valor da Área:</strong> ${formatarNumero(valorArea)} ha</p>
-                <p><strong>População Real:</strong> ${formatarNumero(populacaoReal)} plantas/há</p>
-                <p><strong>Produtividade Estimada:</strong> ${formatarNumero(produtividadeEstimada)} kg/ha</p>
-                <p><strong>Peso Médio Corrigido:</strong> ${formatarNumero(pesoMedioCorrigido)} g</p>
-                <p><strong>Sacos por Tarefa:</strong> ${formatarNumero(sacosPorTarefa)} sacos/TA</p>
-                <p><strong>Produção Contratada:</strong> ${formatarNumero(producaoContratada)} kg</p>
-                <p><strong>Produção Real:</strong> ${formatarNumero(producaoReal)} kg</p>
-                <p><strong>Porcentagem de Perdas:</strong> ${formatarNumero(porcentagemPerdas)}%</p>
-            </div>
-        `;
-    });
+    // Cálculo da porcentagem de perdas
+    const porcentagemPerdas = ((produtividadeDesejada - produtividadeEstimada) / produtividadeDesejada) * 100;
 
-    // Cálculo da produção total e porcentagem de perda total
-    const porcentagemPerdaTotal = ((producaoContratadaTotal - producaoRealTotal) / producaoContratadaTotal) * 100;
+    // Exibir os resultados
     resultadosDiv.innerHTML += `
-        <div class="resultados">
-            <h3>Resultados Totais</h3>
-            <p><strong>Produção Total:</strong> ${formatarNumero(producaoRealTotal)} kg</p>
-            <p><strong>Produção Contratada Total:</strong> ${formatarNumero(producaoContratadaTotal)} kg</p>
-            <p><strong>Porcentagem de Perda Total:</strong> ${formatarNumero(porcentagemPerdaTotal)}%</p>
-        </div>
+      <div class="resultados">
+        <h3>Resultados para Área ${index + 1}</h3>
+        <p><strong>Valor da Área:</strong> ${formatarNumero(valorArea)} ha</p>
+        <p><strong>População Real:</strong> ${formatarNumero(populacaoReal)} plantas/há</p>
+        <p><strong>Produtividade Estimada:</strong> ${formatarNumero(produtividadeEstimada)} kg/ha</p>
+        <p><strong>Peso Médio Corrigido:</strong> ${formatarNumero(pesoMedioCorrigido)} g</p>
+        <p><strong>Sacos por Tarefa:</strong> ${formatarNumero(sacosPorTarefa)} sacos/TA</p>
+        <p><strong>Produção Contratada:</strong> ${formatarNumero(producaoContratada)} kg</p>
+        <p><strong>Produção Real:</strong> ${formatarNumero(producaoReal)} kg</p>
+        <p><strong>Porcentagem de Perdas:</strong> ${formatarNumero(porcentagemPerdas)}%</p>
+      </div>
     `;
+  });
+
+  // Cálculo da produção total e porcentagem de perda total
+  const porcentagemPerdaTotal = ((producaoContratadaTotal - producaoRealTotal) / producaoContratadaTotal) * 100;
+  resultadosDiv.innerHTML += `
+    <div class="resultados">
+      <h3>Resultados Totais</h3>
+      <p><strong>Produção Total:</strong> ${formatarNumero(producaoRealTotal)} kg</p>
+      <p><strong>Produção Contratada Total:</strong> ${formatarNumero(producaoContratadaTotal)} kg</p>
+      <p><strong>Porcentagem de Perda Total:</strong> ${formatarNumero(porcentagemPerdaTotal)}%</p>
+    </div>
+  `;
 }
