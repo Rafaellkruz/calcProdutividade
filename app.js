@@ -1,7 +1,7 @@
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
-      .register("/calcProdutividade/service-worker.js") // Ajuste para incluir o nome do repositório
+      .register("/service-worker.js") // Ajuste para incluir o nome do repositório
       .then(() => console.log("Service Worker registrado com sucesso."))
       .catch((err) => console.error("Falha ao registrar o Service Worker:", err));
   });
