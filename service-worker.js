@@ -1,42 +1,44 @@
-const cacheName = 'app-v1';
-const assets = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/app.js',
-  '/images/icon-192x192.png',
-  '/images/icon-512x512.png'
+const CACHE_NAME = "produtividade-cache-v1";
+const urlsToCache = [
+  "./",
+  "./index.html",
+  "./style.css", // Atualize os nomes dos seus arquivos
+  "./app.js",    // Certifique-se de incluir todos os arquivos essenciais
+  "./manifest.json",
+  "./icon-192x192.png",
+  "./icon-512x512.png"
 ];
 
-// Instalando o service worker
-self.addEventListener('install', event => {
+// Instala o Service Worker e adiciona os arquivos ao cache
+self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(cacheName).then(cache => {
-      return cache.addAll(assets);
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(urlsToCache);
     })
   );
 });
 
-// Ativando o service worker
-self.addEventListener('activate', event => {
+// Busca recursos do cache ou da rede
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    })
+  );
+});
+
+// Atualiza o cache ao instalar uma nova versão
+self.addEventListener("activate", (event) => {
+  const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
-    caches.keys().then(cacheNames => {
+    caches.keys().then((cacheNames) => {
       return Promise.all(
-        cacheNames.map(cache => {
-          if (cache !== cacheName) {
-            return caches.delete(cache);
+        cacheNames.map((cacheName) => {
+          if (!cacheWhitelist.includes(cacheName)) {
+            return caches.delete(cacheName);
           }
         })
       );
-    })
-  );
-});
-
-// Interceptando as requisições de rede
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
     })
   );
 });
