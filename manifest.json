@@ -1,20 +1,18 @@
 {
-  "name": "Calculadora de Produtividade",
-  "short_name": "CalcProd",
-  "description": "Uma calculadora para produtividade agrícola.",
-  "start_url": "/index.html",
+  "name": "Calculador de Produtividade",
+  "short_name": "Produtividade",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#f8f9fa",
-  "theme_color": "#28a745",
-  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#4CAF50",
   "icons": [
     {
-      "src": "/images/icon-192x192.png",
+      "src": "icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/images/icon-512x512.png",
+      "src": "icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
