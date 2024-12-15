@@ -1,7 +1,7 @@
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
-      .register("/calcProdutividade/service-worker.js") // Ajustado para usar a URL correta
+      .register("./service-worker.js") // Ajustado para usar a URL correta
       .then(() => console.log("Service Worker registrado com sucesso."))
       .catch((err) => console.error("Falha ao registrar o Service Worker:", err));
   });
