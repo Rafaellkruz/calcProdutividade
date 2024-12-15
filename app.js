@@ -1,3 +1,11 @@
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("./service-worker.js")
+      .then(() => console.log("Service Worker registrado com sucesso."))
+      .catch((err) => console.error("Falha ao registrar o Service Worker:", err));
+  });
+}
 document.getElementById('addArea').addEventListener('click', adicionarArea);
 document.getElementById('calcular').addEventListener('click', calcular);
 
