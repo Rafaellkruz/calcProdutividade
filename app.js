@@ -87,7 +87,7 @@ function calcular() {
         <p><strong>População Real:</strong> ${formatarNumero(populacaoReal)} plantas/há</p>
         <p><strong>Produtividade Estimada:</strong> ${formatarNumero(produtividadeEstimada)} kg/ha</p>
         <p><strong>Peso Médio Corrigido:</strong> ${formatarNumero(pesoMedioCorrigido)} g</p>
-        <p><strong>Sacos por Tarefa:</strong> ${formatarNumero(sacosPorTarefa)} sacos/TA</p>
+        <p><strong>Sacos por Tarefa:</strong> ${formatarNumero(sacosPorTarefa)} sacos</p>
         <p><strong>Produção Contratada:</strong> ${formatarNumero(producaoContratada)} kg</p>
         <p><strong>Produção Real:</strong> ${formatarNumero(producaoReal)} kg</p>
         <p><strong>Porcentagem de Perdas:</strong> ${formatarNumero(porcentagemPerdas)}%</p>
