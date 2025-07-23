@@ -2,8 +2,8 @@ const CACHE_NAME = "produtividade-cache-v1";
 const urlsToCache = [
   "./",
   "./index.html",
-  "./style.css", // Atualize os nomes dos seus arquivos
-  "./app.js",    // Certifique-se de incluir todos os arquivos essenciais
+  "./styles.css", // NOME CORRIGIDO
+  "./app.js",
   "./manifest.json",
   "./icon-192x192.png",
   "./icon-512x512.png"
