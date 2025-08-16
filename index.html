@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculadora de Produtividade Avançada</title>
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#4CAF50">
     <link rel="stylesheet" href="styles.css" />
   </head>
 
@@ -200,17 +202,18 @@
       </main>
     </div>
     <script src="app.js"></script>
-    <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./service-worker.js')
-        .then(registration => {
-          console.log('Service Worker registrado com sucesso:', registration);
-        })
-        .catch(error => {
-          console.log('Falha ao registrar o Service Worker:', error);
-        });
-    }
-  </script>
+<script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(registration => {
+            console.log('Service Worker registrado com sucesso:', registration);
+          })
+          .catch(error => {
+            console.log('Falha ao registrar o Service Worker:', error);
+          });
+      }
+    </script>
   </body>
 </html>
+
 
