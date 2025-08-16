@@ -1,70 +1,204 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Produtividade</title>
-    <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#4CAF50">
-    <link rel="stylesheet" href="styles.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Produtividade Avançada</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-<body>
-  <div class="dadosDesejados">
-    <div id="dadosDesejados" >
-      <h3>Dados Desejados</h3>
-      <label>Umidade Desejada (%):</label>
-      <input type="number" id="umidadeDesejada" value="13" />
-      
-      <label>Produtividade Desejada (kg/ha):</label>
-      <input type="number" id="produtividadeDesejada" class="produtividadeDesejada" value="5500" />
-      
-      <label>Sacos Desejados (sacos/TA):</label>
-      <input type="number" id="sacosDesejados" value="27.78" />
-      
-      <label>População Desejada (plantas/ha):</label>
-      <input type="number" id="populacaoDesejada" value="50400" />
-      
-      <label>Peso Médio Desejado por Espiga (g):</label>
-      <input type="number" id="pesoEspigaDesejado" value="109.13" />
-  </div>
-  </div>
-
-  <div class="container">
-    <header>
-        <h1>Calculadora de Produtividade</h1>
-    </header>
-    <div id="areas">
-      <div class="area">
-          <h4>Área 1</h4>
-          <label>Valor da Área (ha):</label>
-          <input type="number" class="valorArea" />
-          <label>Umidade obtida (%):</label>
-          <input type="number" class="umidadeObtida" />
-          <label>População em 10 metros:</label>
-          <input type="number" class="populacao10m" />
-          <label>Peso médio por espiga (g):</label>
-          <input type="number" class="pesoEspiga" />
+  <body>
+    <div id="relatorio">
+      <div id="cabecalho-impressao">
+        <img
+          src=""
+          alt="Logo da Empresa"
+          id="relatorio-logo-empresa"
+          style="max-height: 80px; margin-bottom: 20px"
+        />
+        <h2 id="relatorio-empresa-nome"></h2>
+        <p>
+          <span id="relatorio-empresa-cnpj"></span> | Contato:
+          <span id="relatorio-empresa-contato"></span><br />
+          <span id="relatorio-empresa-endereco"></span>
+        </p>
+        <hr />
+        <div class="info-grid">
+          <div>
+            <h3>Informações do Produtor</h3>
+            <p>
+              <strong>Produtor:</strong> <span id="relatorio-produtor"></span>
+            </p>
+            <p><strong>CPF:</strong> <span id="relatorio-cpf"></span></p>
+          </div>
+          <div id="relatorio-dados-desejados">
+            <h3>Parâmetros de Cálculo</h3>
+          </div>
+        </div>
       </div>
-  </div>
-  <button id="addArea">Adicionar Área</button>
-  <button id="calcular">Calcular</button>
-  <div id="resultados"></div>
-  
-</div>
+      <div id="resultados-impressao"></div>
+    </div>
 
+    <div class="container">
+      <header>
+        <h1>Calculadora de Produtividade Agrícola</h1>
+        <p>Preencha os dados abaixo para calcular a produtividade estimada.</p>
+      </header>
+
+      <main>
+        <div class="card" id="gerenciaEmpresa">
+          <h4>Gerenciamento de Empresas</h4>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="listaEmpresas">Empresa Salva:</label>
+              <select id="listaEmpresas">
+                <option value="">-- Nova Empresa --</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="empresaNome">Nome da Empresa:</label>
+              <input type="text" id="empresaNome" placeholder="Nome Fantasia" />
+            </div>
+            <div class="form-group">
+              <label for="empresaCnpj">CNPJ:</label>
+              <input
+                type="text"
+                id="empresaCnpj"
+                placeholder="00.000.000/0001-00"
+              />
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="empresaContato">Contato:</label>
+              <input
+                type="text"
+                id="empresaContato"
+                placeholder="(00) 0 0000-0000"
+              />
+            </div>
+            <div class="form-group">
+              <label for="empresaEndereco">Endereço:</label>
+              <input
+                type="text"
+                id="empresaEndereco"
+                placeholder="Cidade / UF - CEP"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="empresaLogo">Logo da Empresa:</label>
+            <input type="file" id="empresaLogo" accept="image/*" />
+          </div>
+          <div
+            id="logo-preview"
+            style="margin-top: 10px; max-width: 150px; max-height: 80px"
+          ></div>
+          <div class="botoes-container-inline">
+            <button id="salvarEmpresa">Salvar Empresa</button>
+            <button id="excluirEmpresa" class="btn-danger">
+              Excluir Empresa
+            </button>
+          </div>
+        </div>
+
+        <div class="card" id="infoProdutor">
+          <h4>Informações do Produtor</h4>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="nomeProdutor">Nome do Produtor:</label>
+              <input
+                type="text"
+                id="nomeProdutor"
+                placeholder="Nome completo do produtor"
+              />
+            </div>
+            <div class="form-group">
+              <label for="cpfProdutor">CPF:</label>
+              <input
+                type="text"
+                id="cpfProdutor"
+                placeholder="CPF do produtor"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="card" id="dadosDesejados">
+          <h4>Parâmetros Desejados (Metas)</h4>
+          <div class="form-grid-parametros">
+            <div class="form-group">
+              <label>Umidade Desejada (%):</label>
+              <input type="number" id="umidadeDesejada" value="13" />
+            </div>
+            <div class="form-group">
+              <label>Produtividade Desejada (kg/ha):</label>
+              <input type="number" id="produtividadeDesejada" value="5500" />
+            </div>
+            <div class="form-group">
+              <label>Sacos Desejados (sacos/TA):</label>
+              <input type="number" id="sacosDesejados" value="27.78" />
+            </div>
+            <div class="form-group">
+              <label>População Desejada (plantas/ha):</label>
+              <input type="number" id="populacaoDesejada" value="50400" />
+            </div>
+            <div class="form-group">
+              <label>Peso Médio Desejado por Espiga (g):</label>
+              <input type="number" id="pesoEspigaDesejado" value="109.13" />
+            </div>
+          </div>
+        </div>
+
+        <div id="areas-container">
+          <div class="card area">
+            <div class="area-header">
+              <h4>Área 1</h4>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Área (ha):</label>
+                <input type="number" class="valorArea" placeholder="Ex: 50.5" />
+              </div>
+              <div class="form-group">
+                <label>Umidade Obtida (%):</label>
+                <input
+                  type="number"
+                  class="umidadeObtida"
+                  placeholder="Ex: 18.2"
+                />
+              </div>
+              <div class="form-group">
+                <label>População (10m):</label>
+                <input
+                  type="number"
+                  class="populacao10m"
+                  placeholder="Plantas em 10m"
+                />
+              </div>
+              <div class="form-group">
+                <label>Peso Médio Espiga (g):</label>
+                <input
+                  type="number"
+                  class="pesoEspiga"
+                  placeholder="Ex: 110.5"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="botoes-container">
+          <button id="addArea">Adicionar Área</button>
+          <button id="calcular" class="btn-principal">Calcular</button>
+          <button id="imprimir">Imprimir Relatório</button>
+        </div>
+
+        <div id="resultados-container"></div>
+      </main>
+    </div>
     <script src="app.js"></script>
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./service-worker.js')
-          .then(registration => {
-            console.log('Service Worker registrado com sucesso:', registration);
-          })
-          .catch(error => {
-            console.log('Falha ao registrar o Service Worker:', error);
-          });
-      }
-    </script>
-    
-</body>
+  </body>
 </html>
