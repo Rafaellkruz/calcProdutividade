@@ -1,69 +1,333 @@
+/* --- CONFIGURAÇÕES GLOBAIS E VARIÁVEIS DE COR --- */
+:root {
+  --cor-primaria: #28a745;
+  --cor-primaria-hover: #218838;
+  --cor-secundaria: #007bff;
+  --cor-secundaria-hover: #0056b3;
+  --cor-perigo: #dc3545;
+  --cor-perigo-hover: #c82333;
+  --cor-texto: #343a40;
+  --cor-fundo: #f8f9fa;
+  --cor-borda: #dee2e6;
+  --cor-fundo-card: #ffffff;
+  --sombra-card: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
   margin: 0;
-  padding: 20px;
-  background-color: #f8f9fa;
+  padding: 1.5rem;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  line-height: 1.6;
+}
+
+/* --- TIPOGRAFIA --- */
+h1,
+h3,
+h4 {
+  color: var(--cor-texto);
 }
 
 h1 {
   text-align: center;
+  margin-bottom: 0.5rem;
 }
 
-h3 {
-  color: #333;
+header p {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+  color: #6c757d;
 }
 
+h4 {
+  margin-top: 0;
+  border-bottom: 1px solid var(--cor-borda);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+}
+
+/* --- LAYOUT DO CONTAINER --- */
 .container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
-.area {
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 15px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+/* --- ESTILO DOS CARDS --- */
+.card {
+  background-color: var(--cor-fundo-card);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--sombra-card);
+  border: 1px solid var(--cor-borda);
+}
+
+/* --- LAYOUT DE FORMULÁRIOS (GRID) --- */
+.form-grid,
+.form-grid-parametros {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.form-grid {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.form-grid-parametros {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
 }
 
 label {
-  display: block;
-  margin: 10px 0 5px;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
-input[type="number"] {
-  width: 94%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
+input[type="number"],
+input[type="text"],
+select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--cor-secundaria);
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
+}
+
+/* --- ÁREAS DINÂMICAS --- */
+.area-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.area-header h4 {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- BOTÕES --- */
+.botoes-container,
+.botoes-container-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.botoes-container {
+  justify-content: center;
 }
 
 button {
-  background-color: #28a745;
-  color: #fff;
+  background-color: var(--cor-secundaria);
+  color: #ffffff;
   border: none;
-  border-radius: 5px;
-  padding: 10px 15px;
-  font-size: 16px;
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
 }
 
 button:hover {
-  background-color: #218838;
+  background-color: var(--cor-secundaria-hover);
 }
 
-.resultados {
-  background-color: #e9ecef;
-  border-radius: 8px;
-  padding: 15px;
-  margin-top: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+button:active {
+  transform: scale(0.98);
 }
 
-.resultados h3 {
+button.btn-principal {
+  background-color: var(--cor-primaria);
+}
+
+button.btn-principal:hover {
+  background-color: var(--cor-primaria-hover);
+}
+
+button.btn-danger {
+  background-color: var(--cor-perigo);
+}
+
+button.btn-danger:hover {
+  background-color: var(--cor-perigo-hover);
+}
+
+/* --- RESULTADOS --- */
+#resultados-container {
+  margin-top: 2rem;
+}
+
+.resultado-card {
+  background-color: #fff;
+  border-left: 6px solid var(--cor-primaria);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--sombra-card);
+}
+
+.resultado-card.total {
+  border-left-color: var(--cor-secundaria);
+}
+
+.resultado-card h3 {
   margin-top: 0;
+  color: var(--cor-texto);
 }
 
+.resultado-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
 
+.resultado-item p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.resultado-item strong {
+  display: block;
+  font-size: 1.25rem;
+  color: var(--cor-texto);
+}
+
+/* --- ESTILOS PARA IMPRESSÃO --- */
+#relatorio {
+  display: none;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #relatorio,
+  #relatorio * {
+    visibility: visible;
+  }
+
+  body {
+    background: white;
+    font-size: 10pt;
+    padding: 0;
+    margin: 0;
+  }
+
+  #relatorio {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 25px;
+    box-sizing: border-box;
+  }
+
+  #cabecalho-impressao {
+    text-align: center;
+    border-bottom: 2px solid #333;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    page-break-after: avoid;
+  }
+
+  #cabecalho-impressao h2 {
+    margin: 5px 0;
+  }
+  #cabecalho-impressao p {
+    margin: 5px 0;
+    font-size: 9pt;
+  }
+
+  .info-grid {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+    margin-top: 15px;
+    width: 100%;
+  }
+
+  .info-grid div {
+    width: 48%;
+  }
+
+  .info-grid h3 {
+    font-size: 11pt;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+  }
+
+  .info-grid p {
+    font-size: 10pt;
+    margin: 4px 0;
+  }
+
+  #resultados-impressao .resultado-card {
+    border: 1px solid #ccc;
+    box-shadow: none;
+    padding: 12px;
+    margin-bottom: 15px;
+    page-break-inside: avoid;
+  }
+
+  #resultados-impressao .resultado-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  #resultados-impressao .resultado-item strong {
+    font-size: 11pt;
+  }
+}
+
+#logo-preview img {
+  max-width: 100%;
+  max-height: 80px;
+  display: block;
+}
+
+/* --- DESIGN RESPONSIVO --- */
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+
+  .card,
+  .resultado-card {
+    padding: 1rem;
+  }
+
+  .botoes-container {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}
